@@ -9,5 +9,6 @@ TODOs
 - [x] Day 1
 - [x] Day 2
 - [ ] Day 3
-        - [x] Part 1
-        - [ ] Part 2
+  - [x] Part 1
+  - [ ] Part 2
+- [ ] Day 4
