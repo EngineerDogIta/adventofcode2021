@@ -1,5 +1,5 @@
 """
-PART 1
+# PART 1
 
 The submarine has been making some odd creaking noises, so you ask it to produce a diagnostic report just in case.
 
@@ -47,7 +47,7 @@ then multiply them together. What is the power consumption of the submarine?
 (Be sure to represent your answer in decimal, not binary.)
 
 
-PART 2
+# PART 2
 Next, you should verify the life support rating, 
 which can be determined by multiplying the oxygen generator rating by the CO2 scrubber rating.
 
@@ -100,13 +100,6 @@ then multiply them together. What is the life support rating of the submarine?
 (Be sure to represent your answer in decimal, not binary.)
 """
 
-def bit_to_decimal(input_bit):
-    """
-    Convert a bit to a decimal number.
-    """
-    return int(input_bit, 2)
-
-
 if __name__ == '__main__':
     with open('input.txt', 'r', encoding='UTF-8') as f:
         rows = [str(x) for x in f.read().splitlines()]
@@ -118,19 +111,66 @@ if __name__ == '__main__':
         # get only the first character of each row
         stripped_bits = [int(row[i]) for row in rows]
         most_common_bits.append(str(max(set(stripped_bits), key=stripped_bits.count)))
-        print(f'Most common first bit: {most_common_bits[i]}')
+        print(f'Most common {i} bit: {most_common_bits[i]}')
         least_common_bits.append(str(min(set(stripped_bits), key=stripped_bits.count)))
-        print(f'Least common first bit: {least_common_bits[i]}')
+        print(f'Least common {i} bit: {least_common_bits[i]}')
 
 
     gamma_rate = "".join(most_common_bits)
     print(f'Gamma rate: {gamma_rate}')
-    gamma_rate = int(gamma_rate, 2)
-    print(f'Gamma rate: {gamma_rate}')
+    gamma_rate_dec = int(gamma_rate, 2)
+    print(f'Gamma rate: {gamma_rate_dec}')
 
     epsilon_rate = "".join(least_common_bits)
     print(f'Epsilon rate: {epsilon_rate}')
-    epsilon_rate = int(epsilon_rate, 2)
-    print(f'Epsilon rate: {epsilon_rate}')
+    epsilon_rate_dec = int(epsilon_rate, 2)
+    print(f'Epsilon rate: {epsilon_rate_dec}')
 
-    print(gamma_rate * epsilon_rate) # power consumption of the submarine
+    power_consumption = gamma_rate_dec * epsilon_rate_dec
+    # power consumption of the submarine
+    print(f'Power consumption: {power_consumption}')
+
+    print('part 2')
+    # Next, you should verify the life support rating,
+    # which can be determined by multiplying the oxygen generator rating by the CO2 scrubber rating
+    oxygen_generator_rating = 0
+    co2_scrubber_rating = 0
+
+    # get only the first character of each row
+    list_of_criteria_oxygen = list(rows)
+    for i in range(len(list_of_criteria_oxygen[0])):
+        bits = [int(row[i]) for row in list_of_criteria_oxygen] # get all the bits in the row in the position i
+        if(bits.count(0) == bits.count(1)): # if they have the same amount of 0 and 1
+            most_common_bit = "1"
+        else:
+            most_common_bit = str(max(bits.count(0), bits.count(1)))
+        print(f'Most common {i} bit: {most_common_bit}')
+        
+        list_of_criteria_oxygen = [row for row in list_of_criteria_oxygen if int(row[i]) == int(most_common_bit)]
+
+        if len(list_of_criteria_oxygen) == 1:
+            oxygen_generator_rating = int(list_of_criteria_oxygen[0], 2)
+            break
+
+    print(f'Oxygen generator rating: {oxygen_generator_rating}')
+
+    list_of_criteria_co2 = list(rows)
+    for i in range(len(list_of_criteria_co2[0])):
+        bits = [int(row[i]) for row in list_of_criteria_co2] # get all the bits in the row in the position i
+        if(bits.count(0) == bits.count(1)): # if they have the same amount of 0 and 1
+            least_common_bit = "0"
+        else:
+            least_common_bit = str(min(bits.count(0), bits.count(1)))
+        print(f'Least common {i} bit: {least_common_bit}')
+        
+        list_of_criteria_co2 = [row for row in list_of_criteria_co2 if int(row[i]) == int(least_common_bit)]
+
+        if len(list_of_criteria_co2) == 1:
+            co2_scrubber_rating = int(list_of_criteria_co2[0], 2)
+            break
+ 
+    print(f'CO2 scrubber rating: {co2_scrubber_rating}')
+
+    # What is the life support rating of the submarine?
+    life_support_rating = oxygen_generator_rating * co2_scrubber_rating
+    print(f'Life support rating: {life_support_rating}')
