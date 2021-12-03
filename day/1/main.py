@@ -13,11 +13,15 @@ For example, suppose you had the following report:
 269
 260
 263
-This report indicates that, scanning outward from the submarine, the sonar sweep found depths of 199, 200, 208, 210, and so on.
+This report indicates that, scanning outward from the submarine,
+the sonar sweep found depths of 199, 200, 208, 210, and so on.
 
-The first order of business is to figure out how quickly the depth increases, just so you know what you're dealing with - you never know if the keys will get carried into deeper water by an ocean current or a fish or something.
+The first order of business is to figure out how quickly the depth increases,
+just so you know what you're dealing with 
+- you never know if the keys will get carried into deeper water by an ocean current or a fish or something.
 
-To do this, count the number of times a depth measurement increases from the previous measurement. (There is no measurement before the first measurement.) In the example above, the changes are as follows:
+To do this, count the number of times a depth measurement increases from the previous measurement.
+(There is no measurement before the first measurement.) In the example above, the changes are as follows:
 
 199 (N/A - no previous measurement)
 200 (increased)
@@ -37,9 +41,7 @@ How many measurements are larger than the previous measurement?
 
 if __name__ == '__main__':
     with open('input.txt', 'r') as f:
-        rows = f.read().splitlines()
-
-    rows = [int(x) for x in rows]
+        rows = [int(x) for x in f.read().splitlines()]
 
     count = 0
     for i in range(1, len(rows)):
