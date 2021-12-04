@@ -3,7 +3,7 @@ https://adventofcode.com/2021/day/1
 """
 
 if __name__ == '__main__':
-    with open('input.txt', 'r') as f:
+    with open('input.txt', 'r', encoding='UTF-8') as f:
         rows = [int(x) for x in f.read().splitlines()]
 
     count = 0
