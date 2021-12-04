@@ -1,3 +1,6 @@
+"""
+https://adventofcode.com/2021/day/3
+"""
 
 def find_most_common_bit(list_binaries, index):
     """Find the most common bit in the index in parameter."""

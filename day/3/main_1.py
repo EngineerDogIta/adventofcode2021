@@ -1,4 +1,6 @@
-
+"""
+https://adventofcode.com/2021/day/3
+"""
 
 if __name__ == '__main__':
     with open('input.txt', 'r', encoding='UTF-8') as f:
