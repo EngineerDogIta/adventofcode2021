@@ -107,6 +107,73 @@ class BingoBoard:
         """
         return all([self.is_marked(number) for number in self.rotate_board()[column]])
 
+    def is_winner(self):
+        """	
+        Check if the board is a winner
+        >>> bingo_board = BingoBoard([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10], [11, 12, 13, 14, 15], [16, 17, 18, 19, 20], [21, 22, 23, 24, 25]])
+        >>> bingo_board.is_winner()
+        False
+        >>> bingo_board.mark_number(1)
+        >>> bingo_board.mark_number(2)
+        >>> bingo_board.mark_number(3)
+        >>> bingo_board.mark_number(4)
+        >>> bingo_board.mark_number(5)
+        >>> bingo_board.is_winner()
+        True
+        >>> bingo_board = BingoBoard([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10], [11, 12, 13, 14, 15], [16, 17, 18, 19, 20], [21, 22, 23, 24, 25]])
+        >>> bingo_board.is_winner()
+        False
+        >>> bingo_board.mark_number(1)
+        >>> bingo_board.mark_number(6)
+        >>> bingo_board.mark_number(11)
+        >>> bingo_board.mark_number(16)
+        >>> bingo_board.mark_number(21)
+        >>> bingo_board.is_winner()
+        True
+        """
+        for nrow in range(self.rows):
+            if self.is_row_marked(nrow):
+                return True
+        for ncol in range(self.columns):
+            if self.is_column_marked(ncol):
+                return True
+        return False
+
+    def sum_unmarked(self):
+        """Sums all unmarked numbers on the board
+        >>> bingo_board = BingoBoard([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10], [11, 12, 13, 14, 15], [16, 17, 18, 19, 20], [21, 22, 23, 24, 25]])
+        >>> bingo_board.sum_unmarked()
+        325
+        >>> bingo_board.mark_number(1)
+        >>> bingo_board.mark_number(2)
+        >>> bingo_board.mark_number(3)
+        >>> bingo_board.mark_number(4)
+        >>> bingo_board.mark_number(5)
+        >>> bingo_board.sum_unmarked()
+        310
+        """
+        listnumbers = [int(i) for i in (",".join([",".join([str(number) for number in row]) for row in self.board])).split(",")]
+        return sum([number for number in listnumbers if not self.is_marked(number)])
+
+    def score(self, extracted_number: int):
+        """
+        >>> bingo_board = BingoBoard([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10], [11, 12, 13, 14, 15], [16, 17, 18, 19, 20], [21, 22, 23, 24, 25]])
+        >>> bingo_board.score()
+        0
+        >>> bingo_board.mark_number(1)
+        >>> bingo_board.mark_number(2)
+        >>> bingo_board.mark_number(3)
+        >>> bingo_board.mark_number(4)
+        >>> bingo_board.mark_number(5)
+        >>> bingo_board.score()
+        5
+        >>> bingo_board.mark_number(16)
+        >>> bingo_board.mark_number(21)
+        >>> bingo_board.score()
+        10
+        """
+        return self.sum_unmarked() * extracted_number
+
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
