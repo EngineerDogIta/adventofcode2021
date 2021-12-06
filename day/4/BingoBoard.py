@@ -158,19 +158,19 @@ class BingoBoard:
     def score(self, extracted_number: int):
         """
         >>> bingo_board = BingoBoard([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10], [11, 12, 13, 14, 15], [16, 17, 18, 19, 20], [21, 22, 23, 24, 25]])
-        >>> bingo_board.score()
-        0
+        >>> bingo_board.score(1)
+        325
         >>> bingo_board.mark_number(1)
         >>> bingo_board.mark_number(2)
         >>> bingo_board.mark_number(3)
         >>> bingo_board.mark_number(4)
         >>> bingo_board.mark_number(5)
-        >>> bingo_board.score()
-        5
+        >>> bingo_board.score(2)
+        620
         >>> bingo_board.mark_number(16)
         >>> bingo_board.mark_number(21)
-        >>> bingo_board.score()
-        10
+        >>> bingo_board.score(1)
+        273
         """
         return self.sum_unmarked() * extracted_number
 
