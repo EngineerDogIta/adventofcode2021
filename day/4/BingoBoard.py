@@ -17,6 +17,7 @@ class BingoBoard:
         self.rows = len(self.board)
         self.columns = len(self.board[0])
         self.marked_numbers = []
+        self.has_won = False
 
     def __str__(self):
         """
@@ -133,9 +134,11 @@ class BingoBoard:
         """
         for nrow in range(self.rows):
             if self.is_row_marked(nrow):
+                self.has_won = True
                 return True
         for ncol in range(self.columns):
             if self.is_column_marked(ncol):
+                self.has_won = True
                 return True
         return False
 
@@ -173,6 +176,15 @@ class BingoBoard:
         273
         """
         return self.sum_unmarked() * extracted_number
+
+    def __eq__(self, __o: object):
+        """Two boards are equal if they have the same rows
+        >>> bingo_board = BingoBoard([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10], [11, 12, 13, 14, 15], [16, 17, 18, 19, 20], [21, 22, 23, 24, 25]])
+        >>> bingo_board2 = BingoBoard([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10], [11, 12, 13, 14, 15], [16, 17, 18, 19, 20], [21, 22, 23, 24, 25]])
+        >>> bingo_board == bingo_board2
+        True
+        """
+        return self.board == __o.board
 
 if __name__ == "__main__":
     import doctest
