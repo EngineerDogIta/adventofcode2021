@@ -138,9 +138,9 @@ class Line:
 
     def overlaps(self, l : object) -> bool:
         """
-        Return True if the line overlaps with the line l, False otherwise
-        >>> l1 = Line(Point(0, 9), Point(5, 9))
-        >>> l2 = Line(Point(0, 9), Point(2, 9))
+        Return True if the line overlaps the line l, False otherwise
+        >>> l1 = Line(Point(1, 1), Point(1, 3))
+        >>> l2 = Line(Point(1, 1), Point(1, 2))
         >>> l1.overlaps(l2)
         True
         >>> l3 = Line(Point(1, 2), Point(3, 5))
@@ -149,10 +149,37 @@ class Line:
         """
         assert(type(l) == Line)
         if self.is_vertical() and l.is_vertical():
-            return self.p1.x == l.p1.x
-        if self.is_horizontal() and l.is_horizontal():
-            return self.p1.y == l.p1.y
-        return False
+            return self.p1.x >= l.p1.x and (self.p1.x == l.p1.x or self.p1.x == l.p2.x or self.p2.x == l.p1.x or self.p2.x == l.p2.x)
+        elif self.is_horizontal() and l.is_horizontal():
+            return self.p1.y >= l.p1.y and (self.p1.y == l.p1.y or self.p1.y == l.p2.y or self.p2.y == l.p1.y or self.p2.y == l.p2.y)
+        else:
+            return False
+
+
+    def __repr__(self) -> str:
+        """
+        Return a string representation of a Line class
+        >>> l = Line(Point(1, 2), Point(3, 4))
+        >>> repr(l)
+        'Line((1, 2), (3, 4))'
+        """
+        return f'Line({self.p1}, {self.p2})'
+    
+    def points_covered(self):
+        """
+        Return the list of points covered by the line
+        >>> l = Line(Point(1, 2), Point(1, 5))
+        >>> l.points_covered()
+        [(1, 2), (1, 3), (1, 4), (1, 5)]
+        >>> l = Line(Point(3, 2), Point(5, 2))
+        >>> l.points_covered()
+        [(3, 2), (4, 2), (5, 2)]
+        """
+        if self.is_vertical():
+            return [(self.p1.x, i) for i in range(self.p1.y, self.p2.y + 1)]
+        elif self.is_horizontal():
+            return [(i, self.p1.y) for i in range(self.p1.x, self.p2.x + 1)]
+        return []
 
 if __name__ == "__main__":
     import doctest
