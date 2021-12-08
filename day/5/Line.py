@@ -48,7 +48,10 @@ class Point:
         Return a hash of a Point class
         >>> p = Point(1, 2)
         >>> hash(p)
-        6
+        -3550055125485641917
+        >>> p = Point(4, 2)
+        >>> hash(p)
+        -9131917124991031250
         """
         return hash((self.x, self.y))
 
@@ -117,12 +120,6 @@ class Line:
             assert(type(__o) == Line)
             return self.p1 == __o.p1 and self.p2 == __o.p2
         return False
-
-    def list_points(self):
-        """
-        list of coordinates between two points
-        """
-        raise NotImplementedError
 
     def is_vertical(self):
         """
