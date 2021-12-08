@@ -43,6 +43,15 @@ class Point:
         assert(type(__o) == Point)
         return self.x == __o.x and self.y == __o.y
 
+    def __hash__(self) -> int:
+        """
+        Return a hash of a Point class
+        >>> p = Point(1, 2)
+        >>> hash(p)
+        6
+        """
+        return hash((self.x, self.y))
+
     def __repr__(self) -> str:
         """
         Return a string representation of a Point class
